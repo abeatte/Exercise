@@ -1,7 +1,5 @@
 package com.artbeatte.exercises.bowlingball;
 
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
 /**
  * @author sarbs
  * @version 11/16/15
@@ -54,6 +52,7 @@ public class BowlingBall {
      * @return The maximum height at which more identical balls can be dropped without them breaking.
      */
     public static int maxHeight(int maxDropPossible, BowlingBall first, BowlingBall second) {
-        throw new NotImplementedException();
+        // TODO: implement;
+        return -1;
     }
 }
