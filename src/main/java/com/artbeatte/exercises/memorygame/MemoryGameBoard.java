@@ -65,9 +65,8 @@ public final class MemoryGameBoard {
                     mCards.set(mFlippedIndex, null);
                     mCards.set(attemptIndex, null);
                     mCardsLeft -= 2;
-                } else {
-                    mFlippedIndex = -1;
                 }
+                mFlippedIndex = -1;
             }
         }
 
