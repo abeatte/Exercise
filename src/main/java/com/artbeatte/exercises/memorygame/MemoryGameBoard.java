@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by csarbora on 1/22/16.
+ * @author csarbora
+ * @version 1/22/16
  */
 public final class MemoryGameBoard {
     private final int mWidth;
@@ -38,13 +39,21 @@ public final class MemoryGameBoard {
         mFlippedIndex = -1;
     }
 
-    public Card flipCard(int x, int y) {
-        if (x < 0 || x >= mWidth || y < 0 || y >= mHeight) {
+    public int getWidth() {
+        return mWidth;
+    }
+
+    public int getHeight() {
+        return mHeight;
+    }
+
+    public Card flipCard(int width, int height) {
+        if (width < 0 || width >= mWidth || height < 0 || height >= mHeight) {
             throw new IndexOutOfBoundsException(String.format("tried to access (%d,%d) on board of size (%d,%d)",
-                    x, y, mWidth, mHeight));
+                    width, height, mWidth, mHeight));
         }
 
-        int attemptIndex = y * mWidth + x;
+        int attemptIndex = height * mWidth + width;
         Card c = mCards.get(attemptIndex);
         if (c != null) {
             mMatched = false;
@@ -56,9 +65,10 @@ public final class MemoryGameBoard {
                     mCards.set(mFlippedIndex, null);
                     mCards.set(attemptIndex, null);
                     mCardsLeft -= 2;
-                } else {
-                    mFlippedIndex = -1;
                 }
+                mFlippedIndex = -1;
+            } else {
+                mFlippedIndex = attemptIndex;
             }
         }
 

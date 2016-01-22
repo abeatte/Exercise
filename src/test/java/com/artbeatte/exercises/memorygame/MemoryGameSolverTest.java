@@ -9,14 +9,15 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by csarbora on 1/22/16.
+ * @author csarbora
+ * @version 1/22/16
  */
 public class MemoryGameSolverTest {
     private static final int WIDTH = 5;
     private static final int HEIGHT = 6;
     private static final int TEST_RUNS = 1000;
 
-    private static final MemoryGameSolver SOLVER = null;
+    private static final Solver SOLVER = new MemoryGameSolver();
 
     private MemoryGameBoard mBoard;
 

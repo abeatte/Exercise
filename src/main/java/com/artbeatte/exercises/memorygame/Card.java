@@ -1,7 +1,8 @@
 package com.artbeatte.exercises.memorygame;
 
 /**
- * Created by csarbora on 1/22/16.
+ * @author csarbora
+ * @version 1/22/16
  */
 public final class Card {
     private final int mNumber;
