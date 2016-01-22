@@ -16,12 +16,12 @@ public final class MemoryGameBoard {
     private int mFlippedIndex;
     private int mCardsLeft;
 
-    public MemoryGameBoard(int width, int height) {
-        mWidth = width;
-        mHeight = height;
-        mCardsLeft = width * height;
+    public MemoryGameBoard(int x, int y) {
+        mWidth = x;
+        mHeight = y;
+        mCardsLeft = x * y;
 
-        if (width <= 0 || height <= 0) {
+        if (x <= 0 || y <= 0) {
             throw new IllegalArgumentException("both x and y must be positive non-zero");
         }
         if (mCardsLeft % 2 != 0) {
@@ -47,13 +47,13 @@ public final class MemoryGameBoard {
         return mHeight;
     }
 
-    public Card flipCard(int width, int height) {
-        if (width < 0 || width >= mWidth || height < 0 || height >= mHeight) {
+    public Card flipCard(int x, int y) {
+        if (x < 0 || x >= mWidth || y < 0 || y >= mHeight) {
             throw new IndexOutOfBoundsException(String.format("tried to access (%d,%d) on board of size (%d,%d)",
-                    width, height, mWidth, mHeight));
+                    x, y, mWidth, mHeight));
         }
 
-        int attemptIndex = height * mWidth + width;
+        int attemptIndex = y * mWidth + x;
         Card c = mCards.get(attemptIndex);
         if (c != null) {
             mMatched = false;
