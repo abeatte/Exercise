@@ -17,7 +17,7 @@ public class MemoryGameSolverTest {
     private static final int HEIGHT = 6;
     private static final int TEST_RUNS = 1000;
 
-    private static final Solver SOLVER = null;
+    private static final Solver SOLVER = new MemoryGameSolver();
 
     private MemoryGameBoard mBoard;
 
