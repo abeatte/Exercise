@@ -47,13 +47,13 @@ public final class MemoryGameBoard {
         return mHeight;
     }
 
-    public Card flipCard(int x, int y) {
-        if (x < 0 || x >= mWidth || y < 0 || y >= mHeight) {
+    public Card flipCard(int width, int height) {
+        if (width < 0 || width >= mWidth || height < 0 || height >= mHeight) {
             throw new IndexOutOfBoundsException(String.format("tried to access (%d,%d) on board of size (%d,%d)",
-                    x, y, mWidth, mHeight));
+                    width, height, mWidth, mHeight));
         }
 
-        int attemptIndex = y * mWidth + x;
+        int attemptIndex = height * mWidth + width;
         Card c = mCards.get(attemptIndex);
         if (c != null) {
             mMatched = false;
@@ -67,6 +67,8 @@ public final class MemoryGameBoard {
                     mCardsLeft -= 2;
                 }
                 mFlippedIndex = -1;
+            } else {
+                mFlippedIndex = attemptIndex;
             }
         }
 
