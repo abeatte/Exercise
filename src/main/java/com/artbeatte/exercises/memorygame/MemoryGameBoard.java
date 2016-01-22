@@ -60,7 +60,7 @@ public final class MemoryGameBoard {
             mFlips++;
 
             if (mFlippedIndex >= 0) {
-                if (c.equals(mCards.get(mFlippedIndex))) {
+                if (attemptIndex != mFlippedIndex && c.equals(mCards.get(mFlippedIndex))) {
                     mMatched = true;
                     mCards.set(mFlippedIndex, null);
                     mCards.set(attemptIndex, null);

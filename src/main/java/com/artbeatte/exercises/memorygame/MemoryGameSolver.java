@@ -37,7 +37,7 @@ public class MemoryGameSolver implements Solver {
                 mFound.put(c, new CardIndex(w, h));
                 if (pair != null) {
                     if (mTurn % 2 == 0) { // 2st card turnover
-                        board.flipCard(pair.width, pair.height);
+                        board.flipCard(w, h);
                         mTurn++;
                     }
                     board.flipCard(pair.width, pair.height);
