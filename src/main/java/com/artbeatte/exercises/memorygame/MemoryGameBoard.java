@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 /**
- * Created by csarbora on 1/22/16.
+ * @author csarbora
+ * @version 1/22/16
  */
 public final class MemoryGameBoard {
     private final int mWidth;
@@ -36,6 +37,14 @@ public final class MemoryGameBoard {
         Collections.shuffle(mCards);
 
         mFlippedIndex = -1;
+    }
+
+    public int getWidth() {
+        return mWidth;
+    }
+
+    public int getHeight() {
+        return mHeight;
     }
 
     public Card flipCard(int x, int y) {

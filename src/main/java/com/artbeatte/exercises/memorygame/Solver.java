@@ -1,8 +1,9 @@
 package com.artbeatte.exercises.memorygame;
 
 /**
- * Created by csarbora on 1/22/16.
+ * @author csarbora
+ * @version 1/22/16
  */
-public interface MemoryGameSolver {
+public interface Solver {
     void solve(MemoryGameBoard board);
 }
