@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class GivenNumbersSumTwoTest {
 
-    private SumInArrayFindable mGNS2;
+    private ArrayFindable mGNS2;
 
     @Before
     public void setUp() {

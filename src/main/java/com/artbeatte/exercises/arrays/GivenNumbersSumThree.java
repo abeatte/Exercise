@@ -9,7 +9,7 @@ package com.artbeatte.exercises.arrays;
  *
  * For example, if the inputs are an array {1, 2, 4, 7, 11, 15} and a number 30, return out the numbers 4, 11 and 15 since 4+11+15=30.
  */
-public class GivenNumbersSumThree implements SumInArrayFindable {
+public class GivenNumbersSumThree implements ArrayFindable {
     @Override
     public int[] find(int[] array, int sum) {
         int[] answer = null;
