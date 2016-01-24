@@ -22,6 +22,8 @@ public class TestAll {
         BowlingBallTest.main(args);
         RectTest.main(args);
         LinkedListNodeTest.main(args);
+        DijkstraTest.main(args);
+        AStarTest.main(args);
         // MeetingSchedulerTest.main(args);
 
         // algorithms

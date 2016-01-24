@@ -1,5 +1,8 @@
 package com.artbeatte.exercises.graphs;
 
+import com.sun.istack.internal.Nullable;
+import com.sun.javafx.beans.annotations.NonNull;
+
 /**
  * @author art.beatte
  * @version 1/21/16
@@ -46,6 +49,20 @@ public class Edge<T> {
 
     public String getKey() {
         return getEdgeKey(mStart, mEnd);
+    }
+
+    public boolean has(@NonNull Node<T> n) {
+        return mStart.equals(n) || mEnd.equals(n);
+    }
+
+    public @Nullable  Node<T> other(@NonNull  Node<T> n) {
+        if (n.equals(mStart)) {
+            return mEnd;
+        } else if (n.equals(mEnd)) {
+            return mStart;
+        } else {
+            return null;
+        }
     }
 
     @Override

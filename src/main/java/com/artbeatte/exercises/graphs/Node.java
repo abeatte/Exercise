@@ -32,4 +32,11 @@ public class Node<T> {
     boolean removeNeighbor(Node<T> node) {
         return mNeighbors.remove(node);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null || !(obj instanceof Node)) return false;
+        Node n = (Node) obj;
+        return n.getValue().equals(getValue());
+    }
 }
