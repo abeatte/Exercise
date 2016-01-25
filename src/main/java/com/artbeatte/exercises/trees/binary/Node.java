@@ -10,6 +10,8 @@ public class Node<T extends Comparable<T>> {
     private Node<T> mLeft;
     private Node<T> mRight;
 
+    public Node() { }
+
     public Node(T value) {
         this.mValue = value;
     }
