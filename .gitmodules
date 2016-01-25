@@ -1,0 +1,3 @@
+[submodule "TestRunner"]
+	path = TestRunner
+	url = https://github.com/abeatte/TestRunner.git

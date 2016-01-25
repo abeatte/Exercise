@@ -1,11 +1,11 @@
-package com.artbeatte.exercises.testrunner.tests;
+package com.artbeatte.exercises.tests;
 
 import com.artbeatte.exercises.graphs.AStar;
 import com.artbeatte.exercises.graphs.AStarTestCase;
 import com.artbeatte.exercises.graphs.Node;
-import com.artbeatte.exercises.testrunner.ExternalTestCase;
-import com.artbeatte.exercises.testrunner.SystemTestRunner;
-import com.artbeatte.exercises.testrunner.TestRunner;
+import com.artbeatte.testrunner.ExternalTestCase;
+import com.artbeatte.testrunner.SystemTestRunner;
+import com.artbeatte.testrunner.TestRunner;
 
 import java.io.IOException;
 import java.io.OutputStream;

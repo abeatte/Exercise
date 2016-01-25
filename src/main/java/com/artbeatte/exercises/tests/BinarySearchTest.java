@@ -1,10 +1,9 @@
-package com.artbeatte.exercises.testrunner.tests.algorithms;
+package com.artbeatte.exercises.tests;
 
 import com.artbeatte.exercises.algorithms.searching.BinarySearch;
-import com.artbeatte.exercises.testrunner.RuntimeTestCase;
-import com.artbeatte.exercises.testrunner.SystemTestRunner;
-import com.artbeatte.exercises.testrunner.TestRunner;
-import com.artbeatte.exercises.testrunner.testcases.generic.ArrayTestCases;
+import com.artbeatte.testrunner.RuntimeTestCase;
+import com.artbeatte.testrunner.SystemTestRunner;
+import com.artbeatte.testrunner.TestRunner;
 
 import java.io.IOException;
 import java.io.OutputStream;

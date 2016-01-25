@@ -1,4 +1,4 @@
-package com.artbeatte.exercises.testrunner.tests;
+package com.artbeatte.exercises.tests;
 
 /**
  * @author art.beatte

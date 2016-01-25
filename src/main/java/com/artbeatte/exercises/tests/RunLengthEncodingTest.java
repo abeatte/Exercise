@@ -1,11 +1,11 @@
-package com.artbeatte.exercises.testrunner.tests;
+package com.artbeatte.exercises.tests;
 
 import com.artbeatte.exercises.strings.RunLengthEncoding;
 import com.artbeatte.exercises.strings.RunLengthEncodingTestCase;
-import com.artbeatte.exercises.testrunner.MethodParameterTestCase;
-import com.artbeatte.exercises.testrunner.MethodTestCase;
-import com.artbeatte.exercises.testrunner.SystemTestRunner;
-import com.artbeatte.exercises.testrunner.TestRunner;
+import com.artbeatte.testrunner.MethodParameterTestCase;
+import com.artbeatte.testrunner.MethodTestCase;
+import com.artbeatte.testrunner.SystemTestRunner;
+import com.artbeatte.testrunner.TestRunner;
 
 /**
  * @author art.beatte

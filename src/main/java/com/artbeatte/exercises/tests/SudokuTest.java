@@ -1,9 +1,9 @@
-package com.artbeatte.exercises.testrunner.tests;
+package com.artbeatte.exercises.tests;
 
 import com.artbeatte.exercises.sudoku.Sudoku;
-import com.artbeatte.exercises.testrunner.MethodParameterTestCase;
-import com.artbeatte.exercises.testrunner.SystemTestRunner;
-import com.artbeatte.exercises.testrunner.TestRunner;
+import com.artbeatte.testrunner.MethodParameterTestCase;
+import com.artbeatte.testrunner.SystemTestRunner;
+import com.artbeatte.testrunner.TestRunner;
 
 import java.util.HashMap;
 import java.util.Map;

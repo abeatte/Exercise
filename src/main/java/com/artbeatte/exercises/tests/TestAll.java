@@ -1,7 +1,4 @@
-package com.artbeatte.exercises.testrunner;
-
-import com.artbeatte.exercises.testrunner.tests.*;
-import com.artbeatte.exercises.testrunner.tests.algorithms.BinarySearchTest;
+package com.artbeatte.exercises.tests;
 
 /**
  * @author art.beatte

@@ -1,11 +1,11 @@
-package com.artbeatte.exercises.testrunner.tests;
+package com.artbeatte.exercises.tests;
 
 import com.artbeatte.exercises.trees.binary.BinarySearchTree;
 import com.artbeatte.exercises.trees.binary.BstTestCase;
-import com.artbeatte.exercises.testrunner.ExternalTestCase;
-import com.artbeatte.exercises.testrunner.MethodTestCase;
-import com.artbeatte.exercises.testrunner.SystemTestRunner;
-import com.artbeatte.exercises.testrunner.TestRunner;
+import com.artbeatte.testrunner.ExternalTestCase;
+import com.artbeatte.testrunner.MethodTestCase;
+import com.artbeatte.testrunner.SystemTestRunner;
+import com.artbeatte.testrunner.TestRunner;
 
 import java.io.IOException;
 import java.io.OutputStream;
