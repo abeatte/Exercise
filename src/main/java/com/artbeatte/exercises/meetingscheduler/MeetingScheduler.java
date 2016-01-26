@@ -1,7 +1,5 @@
 package com.artbeatte.exercises.meetingscheduler;
 
-import com.sun.istack.internal.NotNull;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -27,7 +25,7 @@ public class MeetingScheduler {
         }
 
         @Override
-        public int compareTo(@NotNull Meeting other) {
+        public int compareTo(Meeting other) {
             if (this.startTime.compareTo(other.endTime) > 0) {
                 return 1;
             } else if (this.endTime.compareTo(other.startTime) < 0) {
