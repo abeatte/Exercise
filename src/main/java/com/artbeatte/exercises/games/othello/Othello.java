@@ -1,5 +1,6 @@
 package com.artbeatte.exercises.games.othello;
 
+import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -22,10 +23,11 @@ public class Othello {
     private Color[] mBoard;
     private List<Move> mMoves;
     private Player mCurrentTurn;
+    private boolean mIsQuit;
 
     public Othello() {
-        mWhite = new OthelloPlayer(Color.White);
-        mBlack = new OthelloPlayer(Color.Black);
+        mWhite = new LivePlayer(Color.White);
+        mBlack = new LivePlayer(Color.Black);
         initBoard(8, 8);
         mMoves = new LinkedList<>();
         mCurrentTurn = mWhite;
@@ -33,7 +35,8 @@ public class Othello {
         intro();
 
         updateBoard();
-        while (!isGameOver()) {
+        mIsQuit = false;
+        while (!mIsQuit && !isGameOver()) {
             if (hasValidMove(mCurrentTurn)) {
                 mCurrentTurn.takeTurn(this);
             } else {
@@ -43,7 +46,7 @@ public class Othello {
             updateBoard();
         }
 
-        gameOver();
+        endGame(mIsQuit);
     }
 
     /**
@@ -125,6 +128,17 @@ public class Othello {
                 scanBoard(x - 1, y + 1, Direction.SouthWest, color, false) ||
                 scanBoard(x - 1, y, Direction.West, color, false) ||
                 scanBoard(x - 1, y - 1, Direction.NorthWest, color, false));
+    }
+
+    public Point findValidMove(Player player) {
+        for (int y = 0; y < mHeight; y++) {
+            for (int x = 0; x < mWidth; x++) {
+                if (isValidMove(x, y, player.getColor())) {
+                    return new Point(x, y);
+                }
+            }
+        }
+        return null;
     }
 
     /**
@@ -236,8 +250,28 @@ public class Othello {
         return (mMoves.size() + INITIAL_SETUP_SIZE) >= (mWidth * mHeight);
     }
 
-    private void gameOver() {
-        // TODO: game is over; display stats
+    private int count(Color color) {
+        int count = 0;
+        for (Color aMBoard : mBoard) {
+            if (aMBoard == color) count++;
+        }
+        return count;
+    }
+
+    public void quit() {
+        mIsQuit = true;
+    }
+
+    private void endGame(boolean quit) {
+        int white = count(mWhite.getColor());
+        int black = mBoard.length - white;
+        if (quit) black = count(mBlack.getColor());
+
+        System.out.println(String.format("White: %d", white));
+        System.out.println(String.format("Black: %d", black));
+        if (quit) System.out.println(String.format("%s has ended the game.", mCurrentTurn.getColor()));
+        else System.out.println(String.format("%s wins!", white > black ? "White" : "Black"));
+
         System.out.println("===============================================");
         System.out.println("Thank you for playing Othello (console edition)");
         System.out.println("              By Art Beatte IV                 ");
