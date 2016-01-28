@@ -1,4 +1,4 @@
-package com.artbeatte.exercises.memorygame;
+package com.artbeatte.exercises.games.memory;
 
 import java.util.ArrayList;
 import java.util.Collections;

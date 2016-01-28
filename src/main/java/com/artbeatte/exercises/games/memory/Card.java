@@ -1,4 +1,4 @@
-package com.artbeatte.exercises.memorygame;
+package com.artbeatte.exercises.games.memory;
 
 /**
  * @author csarbora

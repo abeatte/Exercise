@@ -1,4 +1,4 @@
-package com.artbeatte.exercises.memorygame;
+package com.artbeatte.exercises.games.memory;
 
 import com.artbeatte.exercises.test.Repeat;
 import com.artbeatte.exercises.test.RepeatRule;
