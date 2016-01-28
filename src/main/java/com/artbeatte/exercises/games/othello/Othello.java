@@ -136,56 +136,58 @@ public class Othello {
      * @param update true to change all opponent pieces found in the path to the provided {@link Color}
      * @return true if the move is valid and legal.
      */
-    private boolean scanBoard(int x, int y, Direction d, Color color, boolean update) { 
-        if (x < 1 || x >= mWidth || y < 1 || y >= mHeight || mBoard[getBoardIndex(x, y)] == null) {
+    private boolean scanBoard(int x, int y, Direction d, Color color, boolean update) {
+        if (x < 0 || x >= mWidth || y < 0 || y >= mHeight || mBoard[getBoardIndex(x, y)] == null) {
             return false;
+        } else if (update && mBoard[getBoardIndex(x, y)] == color) {
+            return true;
         }
         boolean valid = false;
         switch (d) {
             case North:
-                valid = mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x, y - 1)] == color) || scanBoard(x, y - 1, d, color, update);
+                valid = y - 1 >= 0 && mBoard[getBoardIndex(x, y - 1)] != null && (mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x, y - 1)] == color) || scanBoard(x, y - 1, d, color, update));
                 if (update && valid) {
                     mBoard[getBoardIndex(x, y)] = color;
                 }
                 break;
             case NorthEast:
-                valid = mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x + 1, y - 1)] == color) || scanBoard(x + 1, y - 1, d, color, update);
+                valid = x + 1 < mWidth && y - 1 >= 0 && mBoard[getBoardIndex(x + 1, y - 1)] != null && mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x + 1, y - 1)] == color) || scanBoard(x + 1, y - 1, d, color, update);
                 if (update && valid) {
                     mBoard[getBoardIndex(x, y)] = color;
                 }
                 break;
             case East:
-                valid = mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x + 1, y)] == color) || scanBoard(x + 1, y, d, color, update);
+                valid = x + 1 < mWidth && mBoard[getBoardIndex(x + 1, y)] != null && mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x + 1, y)] == color) || scanBoard(x + 1, y, d, color, update);
                 if (update && valid) {
                     mBoard[getBoardIndex(x, y)] = color;
                 }
                 break;
             case SouthEast:
-                valid = mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x + 1, y + 1)] == color) || scanBoard(x + 1, y + 1, d, color, update);
+                valid = x + 1 < mWidth && y + 1 < mHeight && mBoard[getBoardIndex(x + 1, y + 1)] != null && mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x + 1, y + 1)] == color) || scanBoard(x + 1, y + 1, d, color, update);
                 if (update && valid) {
                     mBoard[getBoardIndex(x, y)] = color;
                 }
                 break;
             case South:
-                valid = mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x, y + 1)] == color) || scanBoard(x, y + 1, d, color, update);
+                valid = y + 1 < mHeight && mBoard[getBoardIndex(x, y + 1)] != null && mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x, y + 1)] == color) || scanBoard(x, y + 1, d, color, update);
                 if (update && valid) {
                     mBoard[getBoardIndex(x, y)] = color;
                 }
                 break;
             case SouthWest:
-                valid = mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x - 1, y + 1)] == color) || scanBoard(x - 1, y + 1, d, color, update);
+                valid = x - 1 >= 0 && y + 1 < mHeight && mBoard[getBoardIndex(x - 1, y + 1)] != null && mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x - 1, y + 1)] == color) || scanBoard(x - 1, y + 1, d, color, update);
                 if (update && valid) {
                     mBoard[getBoardIndex(x, y)] = color;
                 }
                 break;
             case West:
-                valid = mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x - 1, y)] == color) || scanBoard(x - 1, y, d, color, update);
+                valid = x - 1 >= 0 && mBoard[getBoardIndex(x - 1, y)] != null && mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x - 1, y)] == color) || scanBoard(x - 1, y, d, color, update);
                 if (update && valid) {
                     mBoard[getBoardIndex(x, y)] = color;
                 }
                 break;
             case NorthWest:
-                valid = mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x - 1, y - 1)] == color) || scanBoard(x - 1, y - 1, d, color, update);
+                valid = x - 1 >= 0 && y - 1 >= 0 && mBoard[getBoardIndex(x - 1, y - 1)] != null && mBoard[getBoardIndex(x, y)] != color && (mBoard[getBoardIndex(x - 1, y - 1)] == color) || scanBoard(x - 1, y - 1, d, color, update);
                 if (update && valid) {
                     mBoard[getBoardIndex(x, y)] = color;
                 }
