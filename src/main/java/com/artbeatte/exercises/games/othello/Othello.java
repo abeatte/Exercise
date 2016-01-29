@@ -1,6 +1,7 @@
 package com.artbeatte.exercises.games.othello;
 
 import java.awt.*;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import java.util.List;
 public class Othello {
 
     private static final int INITIAL_SETUP_SIZE = 4;
+    private static final int MILISECONDS_TO_SECONDS = 1000;
 
     public static void main(String[] args) {
         new Othello();
@@ -24,6 +26,7 @@ public class Othello {
     private List<Move> mMoves;
     private Player mCurrentTurn;
     private boolean mIsQuit;
+    private long mGameStartTime;
 
     public Othello() {
         mWhite = new LivePlayer(Color.White);
@@ -36,6 +39,7 @@ public class Othello {
 
         updateBoard();
         mIsQuit = false;
+        mGameStartTime = new Date().getTime();
         while (!mIsQuit && !isGameOver()) {
             if (hasValidMove(mCurrentTurn)) {
                 mCurrentTurn.takeTurn(this);
@@ -74,7 +78,7 @@ public class Othello {
         boolean isValid = isValidMove(x, y, player.getColor());
         if (isValid) {
             placePieceAndUpdate(x, y, player.getColor());
-            mMoves.add(new Move(player, x, y));
+            mMoves.add(new Move(player, x, y, new Date()));
             advanceTurn();
         }
 
@@ -272,11 +276,39 @@ public class Othello {
         if (quit) System.out.println(String.format("%s has ended the game.", mCurrentTurn.getColor()));
         else System.out.println(String.format("%s wins!", white > black ? "White" : "Black"));
 
+        printStatistics();
+
+        System.out.println();
         System.out.println("===============================================");
         System.out.println("Thank you for playing Othello (console edition)");
         System.out.println("              By Art Beatte IV                 ");
         System.out.println("             http://artbeatte.com              ");
         System.out.println("===============================================");
+    }
+
+    private void printStatistics() {
+        if (mMoves.isEmpty()) return;
+
+        int wNumMoves = 0;
+        int bNumMoves = 0;
+        long wDuration = 0;
+        long bDuration = 0;
+        long lastTimeStamp = mGameStartTime;
+        for (Move move : mMoves) {
+            if (move.getPlayer() == mWhite) {
+                wNumMoves++;
+                wDuration += move.getTimeStamp() - lastTimeStamp;
+            } else if (move.getPlayer() == mBlack) {
+                bNumMoves++;
+                bDuration = move.getTimeStamp() - lastTimeStamp;
+            }
+            lastTimeStamp = move.getTimeStamp();
+        }
+
+        System.out.println(String.format("White made %d moves with an average move time of %d seconds.",
+                                         wNumMoves, (wDuration / wNumMoves) / MILISECONDS_TO_SECONDS));
+        System.out.println(String.format("Black made %d moves with an average move time of %d seconds.",
+                                         bNumMoves, (bDuration / bNumMoves) / MILISECONDS_TO_SECONDS));
     }
 
     private int getBoardIndex(int x, int y) {
