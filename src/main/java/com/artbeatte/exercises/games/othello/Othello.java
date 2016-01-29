@@ -53,20 +53,16 @@ public class Othello {
         endGame(mIsQuit);
     }
 
-    /**
-     * Initializes the Othello board to official game play standards
-     * @param width the width of the board
-     * @param height the height of the board
-     */
-    private void initBoard(int width, int height) {
-        mWidth = width;
-        mHeight = height;
-        mBoard = new Color[width * height];
-
-        mBoard[3 * mWidth + 3] = Color.White;
-        mBoard[4 * mWidth + 3] = Color.Black;
-        mBoard[4  * mWidth + 4] = Color.White;
-        mBoard[3 * mWidth + 4] = Color.Black;
+    // region public interface
+    public Point findValidMove(Player player) {
+        for (int y = 0; y < mHeight; y++) {
+            for (int x = 0; x < mWidth; x++) {
+                if (isValidMove(x, y, player.getColor())) {
+                    return new Point(x, y);
+                }
+            }
+        }
+        return null;
     }
 
     public boolean placePiece(int x, int y, Player player) {
@@ -85,18 +81,38 @@ public class Othello {
         return isValid;
     }
 
-    private void placePieceAndUpdate(int x, int y, Color color) {
-        mBoard[y * mWidth + x] = color;
-        scanBoard(x, y - 1, Direction.North, color, true);
-        scanBoard(x + 1, y - 1, Direction.NorthEast, color, true);
-        scanBoard(x + 1, y, Direction.East, color, true);
-        scanBoard(x + 1, y + 1, Direction.SouthEast, color, true);
-        scanBoard(x, y + 1, Direction.South, color, true);
-        scanBoard(x - 1, y + 1, Direction.SouthWest, color, true);
-        scanBoard(x - 1, y, Direction.West, color, true);
-        scanBoard(x - 1, y - 1, Direction.NorthWest, color, true);
+    public void quit() {
+        mIsQuit = true;
+    }
+    // endregion
+
+    // region game start
+    /**
+     * Initializes the Othello board to official game play standards
+     * @param width the width of the board
+     * @param height the height of the board
+     */
+    private void initBoard(int width, int height) {
+        mWidth = width;
+        mHeight = height;
+        mBoard = new Color[width * height];
+
+        mBoard[3 * mWidth + 3] = Color.White;
+        mBoard[4 * mWidth + 3] = Color.Black;
+        mBoard[4  * mWidth + 4] = Color.White;
+        mBoard[3 * mWidth + 4] = Color.Black;
     }
 
+    private void intro() {
+        System.out.println("====================================");
+        System.out.println("Welcome to Othello (console edition)");
+        System.out.println("        By Art Beatte IV            ");
+        System.out.println("       http://artbeatte.com         ");
+        System.out.println("====================================");
+    }
+    // endregion
+
+    // region game play
     /**
      * Checks if the player has a valid move.
      * A player can only make a move if there is an open space to place a piece that 'sandwiches' one or more of the
@@ -125,26 +141,111 @@ public class Othello {
     private boolean isValidMove(int x, int y, Color color) {
         return mBoard[getBoardIndex(x, y)] == null &&
                 (scanBoard(x, y - 1, Direction.North, color, false) ||
-                scanBoard(x + 1, y - 1, Direction.NorthEast, color, false) ||
-                scanBoard(x + 1, y, Direction.East, color, false) ||
-                scanBoard(x +1, y + 1, Direction.SouthEast, color, false) ||
-                scanBoard(x, y + 1, Direction.South, color, false) ||
-                scanBoard(x - 1, y + 1, Direction.SouthWest, color, false) ||
-                scanBoard(x - 1, y, Direction.West, color, false) ||
-                scanBoard(x - 1, y - 1, Direction.NorthWest, color, false));
+                        scanBoard(x + 1, y - 1, Direction.NorthEast, color, false) ||
+                        scanBoard(x + 1, y, Direction.East, color, false) ||
+                        scanBoard(x +1, y + 1, Direction.SouthEast, color, false) ||
+                        scanBoard(x, y + 1, Direction.South, color, false) ||
+                        scanBoard(x - 1, y + 1, Direction.SouthWest, color, false) ||
+                        scanBoard(x - 1, y, Direction.West, color, false) ||
+                        scanBoard(x - 1, y - 1, Direction.NorthWest, color, false));
     }
 
-    public Point findValidMove(Player player) {
+    private void placePieceAndUpdate(int x, int y, Color color) {
+        mBoard[y * mWidth + x] = color;
+        scanBoard(x, y - 1, Direction.North, color, true);
+        scanBoard(x + 1, y - 1, Direction.NorthEast, color, true);
+        scanBoard(x + 1, y, Direction.East, color, true);
+        scanBoard(x + 1, y + 1, Direction.SouthEast, color, true);
+        scanBoard(x, y + 1, Direction.South, color, true);
+        scanBoard(x - 1, y + 1, Direction.SouthWest, color, true);
+        scanBoard(x - 1, y, Direction.West, color, true);
+        scanBoard(x - 1, y - 1, Direction.NorthWest, color, true);
+    }
+
+    /**
+     * Swaps the current player
+     */
+    private void advanceTurn() {
+        mCurrentTurn = mCurrentTurn == mWhite ? mBlack : mWhite;
+    }
+
+    private void updateBoard() {
+        System.out.println("  _______________________________");
         for (int y = 0; y < mHeight; y++) {
+            System.out.println(" |   |   |   |   |   |   |   |   |");
+            System.out.print(((char)('A' + y)) + "|");
             for (int x = 0; x < mWidth; x++) {
-                if (isValidMove(x, y, player.getColor())) {
-                    return new Point(x, y);
+                if (x != 0)  System.out.print("|");
+                if (mBoard[y * mWidth + x] == Color.Black) {
+                    System.out.print(" X ");
+                } else if (mBoard[y * mWidth + x] == Color.White) {
+                    System.out.print(" O ");
+                } else {
+                    System.out.print("   ");
                 }
             }
+            System.out.println("|");
+            System.out.println(" |___|___|___|___|___|___|___|___|");
         }
-        return null;
+        System.out.println("   1   2   3   4   5   6   7   8  ");
+    }
+    // endregion
+
+    // region endgame
+    private boolean isGameOver() {
+        return (mMoves.size() + INITIAL_SETUP_SIZE) >= (mWidth * mHeight);
     }
 
+    private void endGame(boolean quit) {
+        int white = count(mWhite.getColor());
+        int black = mBoard.length - white;
+        if (quit) black = count(mBlack.getColor());
+
+        System.out.println(String.format("White: %d", white));
+        System.out.println(String.format("Black: %d", black));
+        if (quit) System.out.println(String.format("%s has ended the game.", mCurrentTurn.getColor()));
+        else System.out.println(String.format("%s wins!", white > black ? "White" : "Black"));
+
+        printStatistics();
+
+        System.out.println();
+        System.out.println("===============================================");
+        System.out.println("Thank you for playing Othello (console edition)");
+        System.out.println("              By Art Beatte IV                 ");
+        System.out.println("             http://artbeatte.com              ");
+        System.out.println("===============================================");
+    }
+
+    private void printStatistics() {
+
+        int wNumMoves = 0;
+        int bNumMoves = 0;
+        long wDuration = 0;
+        long bDuration = 0;
+        long lastTimeStamp = mGameStartTime;
+        for (Move move : mMoves) {
+            if (move.getPlayer() == mWhite) {
+                wNumMoves++;
+                wDuration += move.getTimeStamp() - lastTimeStamp;
+            } else if (move.getPlayer() == mBlack) {
+                bNumMoves++;
+                bDuration = move.getTimeStamp() - lastTimeStamp;
+            }
+            lastTimeStamp = move.getTimeStamp();
+        }
+
+        if (wNumMoves > 0) {
+            System.out.println(String.format("White made %d moves with an average move time of %d seconds.",
+                    wNumMoves, (wDuration / wNumMoves) / MILISECONDS_TO_SECONDS));
+        }
+        if (bNumMoves > 0) {
+            System.out.println(String.format("Black made %d moves with an average move time of %d seconds.",
+                    bNumMoves, (bDuration / bNumMoves) / MILISECONDS_TO_SECONDS));
+        }
+    }
+    // endregion
+
+    // region utility
     /**
      * Determines if the proposed move is a valid and legal one
      * @param x the x coordinate
@@ -214,46 +315,6 @@ public class Othello {
         return valid;
     }
 
-    private void intro() {
-        System.out.println("====================================");
-        System.out.println("Welcome to Othello (console edition)");
-        System.out.println("        By Art Beatte IV            ");
-        System.out.println("       http://artbeatte.com         ");
-        System.out.println("====================================");
-    }
-
-    private void updateBoard() {
-        System.out.println("  _______________________________");
-        for (int y = 0; y < mHeight; y++) {
-            System.out.println(" |   |   |   |   |   |   |   |   |");
-            System.out.print(((char)('A' + y)) + "|");
-            for (int x = 0; x < mWidth; x++) {
-                if (x != 0)  System.out.print("|");
-                if (mBoard[y * mWidth + x] == Color.Black) {
-                    System.out.print(" X ");
-                } else if (mBoard[y * mWidth + x] == Color.White) {
-                    System.out.print(" O ");
-                } else {
-                    System.out.print("   ");
-                }
-            }
-            System.out.println("|");
-            System.out.println(" |___|___|___|___|___|___|___|___|");
-        }
-        System.out.println("   1   2   3   4   5   6   7   8  ");
-    }
-
-    /**
-     * Swaps the current player
-     */
-    private void advanceTurn() {
-        mCurrentTurn = mCurrentTurn == mWhite ? mBlack : mWhite;
-    }
-
-    private boolean isGameOver() {
-        return (mMoves.size() + INITIAL_SETUP_SIZE) >= (mWidth * mHeight);
-    }
-
     private int count(Color color) {
         int count = 0;
         for (Color aMBoard : mBoard) {
@@ -262,56 +323,8 @@ public class Othello {
         return count;
     }
 
-    public void quit() {
-        mIsQuit = true;
-    }
-
-    private void endGame(boolean quit) {
-        int white = count(mWhite.getColor());
-        int black = mBoard.length - white;
-        if (quit) black = count(mBlack.getColor());
-
-        System.out.println(String.format("White: %d", white));
-        System.out.println(String.format("Black: %d", black));
-        if (quit) System.out.println(String.format("%s has ended the game.", mCurrentTurn.getColor()));
-        else System.out.println(String.format("%s wins!", white > black ? "White" : "Black"));
-
-        printStatistics();
-
-        System.out.println();
-        System.out.println("===============================================");
-        System.out.println("Thank you for playing Othello (console edition)");
-        System.out.println("              By Art Beatte IV                 ");
-        System.out.println("             http://artbeatte.com              ");
-        System.out.println("===============================================");
-    }
-
-    private void printStatistics() {
-        if (mMoves.isEmpty()) return;
-
-        int wNumMoves = 0;
-        int bNumMoves = 0;
-        long wDuration = 0;
-        long bDuration = 0;
-        long lastTimeStamp = mGameStartTime;
-        for (Move move : mMoves) {
-            if (move.getPlayer() == mWhite) {
-                wNumMoves++;
-                wDuration += move.getTimeStamp() - lastTimeStamp;
-            } else if (move.getPlayer() == mBlack) {
-                bNumMoves++;
-                bDuration = move.getTimeStamp() - lastTimeStamp;
-            }
-            lastTimeStamp = move.getTimeStamp();
-        }
-
-        System.out.println(String.format("White made %d moves with an average move time of %d seconds.",
-                                         wNumMoves, (wDuration / wNumMoves) / MILISECONDS_TO_SECONDS));
-        System.out.println(String.format("Black made %d moves with an average move time of %d seconds.",
-                                         bNumMoves, (bDuration / bNumMoves) / MILISECONDS_TO_SECONDS));
-    }
-
     private int getBoardIndex(int x, int y) {
         return y * mWidth + x;
     }
+    // endregion
 }
