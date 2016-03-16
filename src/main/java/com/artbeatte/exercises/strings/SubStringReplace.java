@@ -41,13 +41,15 @@ public class SubStringReplace {
     }
 
     private static char[] replaceWord(char[] string, int sInd, char[] replacement, int wordDifference) {
-        char[] ret = string;
+        char[] ret;
         if (wordDifference < 0) {
             // shrink array
-            ret = new char[string.length - wordDifference];
+            ret = new char[string.length + wordDifference];
         } else if (wordDifference > 0) {
             // grow array
             ret = new char[string.length + wordDifference];
+        } else {
+            ret = new char[string.length];
         }
 
         // optimization: this will iterate over the entire array even when it's the same size. TODO
